@@ -1,13 +1,19 @@
+ 
+const bodyParser = require('body-parser');
 const express = require('express');
+const routes = require('./routes/v1')
 const app = express();
-const port = 3000
-const path = require('path');
+const db = require('./database/conection');
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/web/html/login.html'));
-})
 
-app.listen(port, () => {
-  console.log('TA VIVO');
-})
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use('/', routes);
 
+
+
+app.listen(3000,()=>{
+        console.log('Conecting ...');
+});
+
+module.exports = app
